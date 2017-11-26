@@ -270,7 +270,9 @@ void loop()
   else
   {
     //Turn on IR-leds, shutdown motors
-    stopMotors();
+    #ifndef DISABLE_MOTORS
+      stopMotors();
+    #endif
     turnOff(RGB_G | RGB_B);
     turnOn(RGB_R);
     setIRLEDs(true);
