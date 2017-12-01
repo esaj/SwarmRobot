@@ -25,7 +25,6 @@ void checkRadio(){
   if(listRobots.idCurrent==listRobots.idOwn){
     sendMsg=1;
   }else{
-    flag=read(flag);
     if (radio.available()) {
       char messageBack[35] = "";
       radio.read(&messageBack, sizeof(messageBack));
@@ -44,6 +43,7 @@ void checkRadio(){
     radio.write(msgBuffer, Size);
     Serial.println(Size);
     sendMsg=0;
+    flag=read(flag);
   }
 }
 
