@@ -13,6 +13,8 @@
   #include "Motor.h"
 #endif
 
+
+#include "Radio.h"
 #include "PhotoDiode.h"
 #include "ShiftRegister.h"
 
@@ -20,7 +22,6 @@ uint16_t lastLDRReading = 0;
 
 //Protothread for sensor update
 pt sensorPt;
-
 pt radioPt;
 
 
@@ -52,10 +53,11 @@ uint8_t rgb = 0;
 void setup()
 {
 
-  Serial.begin(115200); //For debugging
+  Serial.begin(9600); //For debugging
 
 
   initPhotoDiodes();
+  initRadio();
 
   pinMode(LDR_IN, INPUT);
 
@@ -89,12 +91,13 @@ void setup()
 #endif //#ifdef DISPLAY_ENABLED
 
   PT_INIT(&sensorPt);
+  PT_INIT(&radioPt);
 }
 
 void measureLDR()
 {
   lastLDRReading = analogRead(LDR_IN);
-  Serial.println(lastLDRReading);
+  //Serial.println(lastLDRReading);
 }
 
 #ifdef DISPLAY_ENABLED
@@ -220,12 +223,26 @@ PT_THREAD(updateSensors(struct pt *pt))
 
     measureLDR();
     measureAllPhotoDiodes();
-
   }
   PT_END(pt);
 }
 
-
+PT_THREAD(updateRadio(struct pt *pt))
+{
+  PT_BEGIN(pt);
+      
+  while(1)
+  {
+    
+    PT_WAIT_MS(pt, 1000);
+    checkRadio();
+    
+    //*************************************************************************************************
+    //*************************************************************************************************
+    //*************************************************************************************************
+  }
+  PT_END(pt);
+}
 
 #ifndef DISABLE_MOTORS
   PT_THREAD(updateMotors(struct pt *pt))
@@ -255,7 +272,7 @@ void loop()
 #endif  //#ifdef DISPLAY_ENABLED
 
   updateSensors(&sensorPt);
-
+  updateRadio(&radioPt);
   if(lastLDRReading > 500)
   {
     setIRLEDs(false);
