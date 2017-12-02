@@ -8,8 +8,9 @@ static char flag;
 
 void initRadio() {
   radio.begin();
-  radio.setPALevel(RF24_PA_MIN);
+  radio.setPALevel(RF24_PA_MAX);
   radio.setDataRate(RF24_250KBPS);
+  radio.enableAckPayload();
   flag=read(flag);
 
 // hardcoded stuff, gets removed later on

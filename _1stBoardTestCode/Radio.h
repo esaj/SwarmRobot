@@ -14,7 +14,8 @@ struct List{
   char brightness;
   char idCurrent;
   char groupSize;
-  char singleBits;//bit0: ownBeaconMode bit1: ownMoved bit2: rob1Moved bit3: rob2Moved bit4: rob3Moved bit5: rob4Moved
+  char singleBits;//bit0: ownBeaconMode, bit1: ownMoved, bit2: rob1Moved, 
+                  //bit3: rob2Moved, bit4: rob3Moved, bit5: rob4Moved
   char visibleRobots[3][4];
   char otherRobots[14][4];
 };
