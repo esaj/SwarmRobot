@@ -19,8 +19,8 @@ void writeShiftRegisterState()
     return;
   }
 
-  //Set shift & store low (although they already should be, but just in case there's some "funny" state at start up or such)
-  bit_clear(PORTC, PORTC_SHIFT_STORE | PORTC_SHIFT_STORE);
+  //Set shift clock & store clock low (although they already should be, but just in case there's some "funny" state at start up or such)
+  bit_clear(PORTC, PORTC_SHIFT_CLOCK | PORTC_SHIFT_STORE);
 
   //Value is shifted on rising edge of SHIFT_CLOCK, go through the shiftState bit-by-bit
   for(int i = 15; i >= 0; i--)

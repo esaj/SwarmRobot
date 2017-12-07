@@ -4,7 +4,7 @@
 //Feature set
 //#define DISPLAY_ENABLED   //Enables display, note that the robot won't do anything if this is enabled and there's no display
 
-#define DISABLE_MOTORS      //Completely disables (removes) all motor control code. Meant for testing stuff when you don't
+//#define DISABLE_MOTORS      //Completely disables (removes) all motor control code. Meant for testing stuff when you don't
                             //want the robot to start moving around
 #define REVERSE_MOTORSPEED  //Reverses the PWM-control for motors, needed for robots #2-5 (as robot #1 had different motors
                             //with reversed direction vs. the others, and of course I wired the motors according to #1 directions)
